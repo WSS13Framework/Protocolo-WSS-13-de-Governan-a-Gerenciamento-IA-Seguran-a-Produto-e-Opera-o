@@ -1,0 +1,2 @@
+agent_id,agent_number,agent_name,agent_category,business_function,product_context,owner,model_provider,model_name,prompt_version,tools_allowed,data_sources_allowed,autonomy_level,risk_level,has_kill_switch,requires_human_approval,hallucination_threshold,bias_threshold,failure_threshold,status,last_reviewed_at,next_review_date
+WSS13-AGENT-001,1,,,,,,,,,,,LEVEL_0_SUGGESTION_ONLY,,,,,,,PENDING_REGISTRATION,,

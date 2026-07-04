@@ -1,0 +1,1 @@
+data_asset_id,name,description,owner,classification,contains_personal_data,contains_sensitive_data,legal_basis,processing_purpose,storage_location,retention_period_days,deletion_policy,encrypted_at_rest,encrypted_in_transit,backup_enabled,created_at,last_reviewed_at

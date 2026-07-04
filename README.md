@@ -34,9 +34,26 @@ Toda melhoria fortalece o ativo WSS+13.
 
 ```
 .
-├── README.md                              # Este arquivo
-└── docs/
-    └── WSS13-SGI-AI-PSEUDOCODE-001.md      # Documento mestre do protocolo (v1.0.0)
+├── README.md                                    # Este arquivo
+├── CHANGELOG.md                                 # Controle de versão do ativo
+├── docs/
+│   ├── WSS13-SGI-AI-PSEUDOCODE-001.md            # Documento mestre do protocolo (v1.0.0)
+│   └── governance/                              # Framework de governança operacional
+│       ├── matriz-de-riscos.md
+│       ├── matriz-de-aprovacao.md               # Alçadas / RACI
+│       ├── catalogo-de-agentes-ia.md            # Framework dos 191 agentes
+│       ├── classificacao-de-dados-lgpd.md
+│       └── mapa-de-conformidade.md              # ISO / SOC 2 / NIST / LGPD / GDPR / EU AI Act
+├── registers/                                   # Registros vivos (CSV)
+│   ├── catalogo-agentes.csv
+│   ├── registro-de-riscos.csv
+│   ├── registro-de-fornecedores.csv
+│   └── registro-de-ativos-de-dados.csv
+└── templates/                                   # Modelos operacionais
+    ├── modelo-solicitacao-de-governanca.md
+    ├── modelo-avaliacao-de-risco.md
+    ├── modelo-dpia.md
+    └── modelo-postmortem-de-incidente.md
 ```
 
 O documento mestre é o **pseudocódigo corporativo** que serve de base para transformar em:
@@ -69,6 +86,17 @@ NIST Cybersecurity Framework · OWASP ASVS · OWASP Top 10 · OWASP LLM Top 10 �
 LGPD · GDPR Readiness · EU AI Act Readiness
 
 ---
+
+## Roadmap
+
+Programa de construção do ativo, em fases sequenciais:
+
+| Fase | Objetivo | Status |
+|:--:|---|---|
+| **0** | Camada de governança operacional (matrizes, catálogo, conformidade, modelos) | ✅ Em entrega |
+| **1** | Implementação de referência do software (motores Intake/Risk/Approval/Evidence) | ⏳ Próxima |
+| **2** | Aprofundar governança para prontidão formal de auditoria ISO/SOC 2 | 🔜 Planejada |
+| **3** | Preencher os 191 agentes reais no catálogo | 🔜 Planejada |
 
 ## Aviso de propriedade intelectual
 
