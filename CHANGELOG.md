@@ -6,6 +6,14 @@ versionamento semântico do protocolo.
 
 ## [Não lançado]
 
+### Adicionado — Aprofundamento de governança para auditoria (Fase 2)
+- Políticas formais (`docs/governance/policies/`): segurança da informação, gestão de IA
+  responsável, controle de acesso e privacidade/proteção de dados.
+- Runbooks (`docs/governance/runbooks/`): resposta a incidentes e recuperação de desastres.
+- Registros de auditoria (`registers/`): RoPA (LGPD/GDPR), revisão de acessos e Declaração de
+  Aplicabilidade ISO 27001 (controles-âncora).
+- Índice do framework de governança (`docs/governance/README.md`) com notas de completude.
+
 ### Adicionado — Implementação de referência WSS13_GOS (Fase 1)
 - Pacote `impl/wss13_gos/` (Python 3.11, apenas stdlib) com os motores Intake, Triage,
   Risk, Approval e o cofre de evidências (EvidenceVault), orquestrados por um pipeline

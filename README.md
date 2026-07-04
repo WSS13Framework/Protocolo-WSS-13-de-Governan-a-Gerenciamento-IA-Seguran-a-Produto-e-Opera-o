@@ -104,7 +104,7 @@ Programa de construção do ativo, em fases sequenciais:
 |:--:|---|---|
 | **0** | Camada de governança operacional (matrizes, catálogo, conformidade, modelos) | ✅ Entregue |
 | **1** | Implementação de referência do software (motores Intake/Risk/Approval/Evidence) | ✅ Entregue |
-| **2** | Aprofundar governança para prontidão formal de auditoria ISO/SOC 2 | 🔜 Planejada |
+| **2** | Aprofundar governança para prontidão formal de auditoria ISO/SOC 2 | ✅ Entregue |
 | **3** | Preencher os 191 agentes reais no catálogo | 🔜 Planejada |
 
 ## Aviso de propriedade intelectual
