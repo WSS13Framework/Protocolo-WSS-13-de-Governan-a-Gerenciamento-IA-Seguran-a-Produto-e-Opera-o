@@ -22,8 +22,10 @@ impl/
 │   ├── approval.py       # ApprovalEngine — alçadas/RACI (seção 8)
 │   ├── orchestrator.py   # WSS13_GOS_MAIN — pipeline (seção 4)
 │   ├── storage.py        # InMemoryRepository + SQLiteRepository
-│   └── api.py            # API HTTP mínima (stdlib)
-├── tests/                # 21 testes (unittest)
+│   ├── api.py            # API HTTP mínima (stdlib)
+│   ├── agent_catalog.py  # validador do catálogo dos 191 agentes (audit_ai_agents)
+│   └── validate_catalog.py # CLI do validador
+├── tests/                # 28 testes (unittest)
 └── run_demo.py           # demonstração ponta a ponta
 ```
 
@@ -40,6 +42,9 @@ python3 run_demo.py
 
 # API HTTP local
 python3 -m wss13_gos.api        # http://127.0.0.1:8013
+
+# Validar o catálogo dos 191 agentes
+python3 -m wss13_gos.validate_catalog
 ```
 
 ### Exemplo de uso da API

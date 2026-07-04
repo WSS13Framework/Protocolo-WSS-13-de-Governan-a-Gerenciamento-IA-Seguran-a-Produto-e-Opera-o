@@ -6,6 +6,13 @@ versionamento semântico do protocolo.
 
 ## [Não lançado]
 
+### Adicionado — Catálogo dos 191 agentes: esqueleto + validador (Fase 3)
+- `registers/catalogo-agentes.csv` populado com as 191 linhas estruturadas
+  (`WSS13-AGENT-001..191`, status `PENDING_REGISTRATION`) para preenchimento pelo time.
+- Validador `impl/wss13_gos/agent_catalog.py` + CLI `wss13_gos.validate_catalog`
+  (verifica campos obrigatórios, enums e regras de kill switch/aprovação para HIGH/CRITICAL/LEVEL_5).
+- 7 novos testes; CI passa a validar o catálogo automaticamente.
+
 ### Adicionado — Aprofundamento de governança para auditoria (Fase 2)
 - Políticas formais (`docs/governance/policies/`): segurança da informação, gestão de IA
   responsável, controle de acesso e privacidade/proteção de dados.

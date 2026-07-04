@@ -20,3 +20,6 @@ jobs:
       - name: Demonstração ponta a ponta
         working-directory: impl
         run: python run_demo.py
+      - name: Validar catálogo de agentes
+        working-directory: impl
+        run: python -m wss13_gos.validate_catalog

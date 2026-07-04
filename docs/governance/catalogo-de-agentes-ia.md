@@ -83,10 +83,22 @@ Acionável por `CEO`, `CTO`, `CISO` ou `AI_OFFICER`. Ao acionar:
 O inventário vivo dos 191 agentes é mantido em
 [`registers/catalogo-agentes.csv`](../../registers/catalogo-agentes.csv).
 
-**Status do preenchimento:** o registro está com o **cabeçalho e a estrutura prontos**; a
-catalogação dos 191 agentes reais é a **Fase 3** do roadmap (ver
-[README](../../README.md#roadmap)). Enquanto não preenchido, nenhum agente é considerado
-aprovado para produção.
+**Status do preenchimento:** o registro já contém as **191 linhas estruturadas**
+(`WSS13-AGENT-001` a `191`), todas com status `PENDING_REGISTRATION`. Os dados reais de cada
+agente (nome, dono, modelo, autonomia, métricas) devem ser preenchidos pelo time — são
+informação proprietária da WSS+13, não gerável automaticamente.
+
+**Validador automático:** o registro é verificado por
+[`impl/wss13_gos/agent_catalog.py`](../../impl/wss13_gos/agent_catalog.py):
+
+```bash
+cd impl && python3 -m wss13_gos.validate_catalog
+```
+
+O validador conta pendentes × registrados e, para cada agente **registrado**, exige campos
+obrigatórios, enums válidos e — para HIGH/CRITICAL e `LEVEL_5` — kill switch e aprovação humana
+(`INVARIANT 4/5`). Ele roda também na CI, falhando o build se um agente registrado violar as regras.
+Assim, à medida que o catálogo é preenchido, o sistema acusa automaticamente o que falta.
 
 ### Auditoria do catálogo (`audit_ai_agents`)
 
