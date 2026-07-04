@@ -49,12 +49,21 @@ Toda melhoria fortalece o ativo WSS+13.
 │   ├── registro-de-riscos.csv
 │   ├── registro-de-fornecedores.csv
 │   └── registro-de-ativos-de-dados.csv
-└── templates/                                   # Modelos operacionais
-    ├── modelo-solicitacao-de-governanca.md
-    ├── modelo-avaliacao-de-risco.md
-    ├── modelo-dpia.md
-    └── modelo-postmortem-de-incidente.md
+├── templates/                                   # Modelos operacionais
+│   ├── modelo-solicitacao-de-governanca.md
+│   ├── modelo-avaliacao-de-risco.md
+│   ├── modelo-dpia.md
+│   └── modelo-postmortem-de-incidente.md
+└── impl/                                        # Implementação de referência (WSS13_GOS)
+    ├── wss13_gos/                               # Motores: intake, triage, risk, approval, evidence
+    ├── tests/                                   # 21 testes (unittest, sem dependências)
+    ├── run_demo.py                              # Demonstração ponta a ponta
+    └── README.md
 ```
+
+A implementação de referência é executável com Python 3.11+ (só stdlib):
+`cd impl && python3 -m unittest discover -s tests` · `python3 run_demo.py` ·
+`python3 -m wss13_gos.api`. Detalhes em [`impl/README.md`](./impl/README.md).
 
 O documento mestre é o **pseudocódigo corporativo** que serve de base para transformar em:
 
@@ -93,8 +102,8 @@ Programa de construção do ativo, em fases sequenciais:
 
 | Fase | Objetivo | Status |
 |:--:|---|---|
-| **0** | Camada de governança operacional (matrizes, catálogo, conformidade, modelos) | ✅ Em entrega |
-| **1** | Implementação de referência do software (motores Intake/Risk/Approval/Evidence) | ⏳ Próxima |
+| **0** | Camada de governança operacional (matrizes, catálogo, conformidade, modelos) | ✅ Entregue |
+| **1** | Implementação de referência do software (motores Intake/Risk/Approval/Evidence) | ✅ Entregue |
 | **2** | Aprofundar governança para prontidão formal de auditoria ISO/SOC 2 | 🔜 Planejada |
 | **3** | Preencher os 191 agentes reais no catálogo | 🔜 Planejada |
 
