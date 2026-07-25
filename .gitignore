@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Banco de dados local do WSS13_GOS
+*.db
+*.sqlite
+*.sqlite3
+
+# Sistema
+.DS_Store

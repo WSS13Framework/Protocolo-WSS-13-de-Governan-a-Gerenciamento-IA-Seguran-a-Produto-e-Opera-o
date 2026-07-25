@@ -1,0 +1,9 @@
+controle,tema,titulo,aplicavel,justificativa,implementado_por,status
+A.5.1,Organizacional,Políticas de segurança da informação,SIM,Requisito base do SGI,politica-de-seguranca-da-informacao.md,IMPLEMENTADO
+A.5.15,Organizacional,Controle de acesso,SIM,Menor privilégio e RBAC,politica-de-controle-de-acesso.md,IMPLEMENTADO
+A.5.24,Organizacional,Planejamento de resposta a incidentes,SIM,IncidentEngine + runbook,runbook-resposta-a-incidentes.md,IMPLEMENTADO
+A.5.30,Organizacional,Prontidão de TIC para continuidade,SIM,ContinuityEngine + DR,runbook-recuperacao-de-desastres.md,IMPLEMENTADO
+A.6.3,Pessoas,Conscientização e treinamento,A_DEFINIR,,,PENDENTE
+A.8.5,Tecnológico,Autenticação segura (MFA),SIM,Controle mínimo de segurança,politica-de-seguranca-da-informacao.md,IMPLEMENTADO
+A.8.24,Tecnológico,Uso de criptografia,SIM,Cripto em trânsito e repouso,politica-de-seguranca-da-informacao.md,IMPLEMENTADO
+A.8.16,Tecnológico,Atividades de monitoramento,SIM,Logging e alertas,politica-de-seguranca-da-informacao.md,IMPLEMENTADO

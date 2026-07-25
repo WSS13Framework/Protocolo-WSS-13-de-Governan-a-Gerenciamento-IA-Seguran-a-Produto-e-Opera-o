@@ -1,0 +1,60 @@
+# Changelog — WSS+13 SGI-AI OS
+
+Controle de versão do ativo de governança (`ASSET_PROTECTION_RULE` exige `version_control`).
+Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/);
+versionamento semântico do protocolo.
+
+## [Não lançado]
+
+### Adicionado — Fecho do ciclo: Incidentes, Auditoria e Métricas (Fase 4)
+- `IncidentEngine` (`impl/wss13_gos/incident.py`): abertura/tratamento de incidentes,
+  kill switch de agente (abre incidente AI) e disparo de notificação regulatória em
+  suspeita de violação de dados.
+- `AuditEngine` (`impl/wss13_gos/audit.py`): `run_monthly_audit` verifica integridade da
+  cadeia de evidências, solicitações sem risco, incidentes sem postmortem e reaproveita o
+  validador do catálogo de agentes; não conformidades viram itens de CAPA.
+- `MetricsEngine` (`impl/wss13_gos/metrics.py`): painel executivo agregando solicitações
+  por status/risco, incidentes e integridade de evidências.
+- API ganha `GET /dashboard`, `GET /audit` e `POST /incidents`; persistência de incidentes
+  em memória e SQLite. Demo estendido. 8 novos testes (36 no total).
+
+### Adicionado — Catálogo dos 191 agentes: esqueleto + validador (Fase 3)
+- `registers/catalogo-agentes.csv` populado com as 191 linhas estruturadas
+  (`WSS13-AGENT-001..191`, status `PENDING_REGISTRATION`) para preenchimento pelo time.
+- Validador `impl/wss13_gos/agent_catalog.py` + CLI `wss13_gos.validate_catalog`
+  (verifica campos obrigatórios, enums e regras de kill switch/aprovação para HIGH/CRITICAL/LEVEL_5).
+- 7 novos testes; CI passa a validar o catálogo automaticamente.
+
+### Adicionado — Aprofundamento de governança para auditoria (Fase 2)
+- Políticas formais (`docs/governance/policies/`): segurança da informação, gestão de IA
+  responsável, controle de acesso e privacidade/proteção de dados.
+- Runbooks (`docs/governance/runbooks/`): resposta a incidentes e recuperação de desastres.
+- Registros de auditoria (`registers/`): RoPA (LGPD/GDPR), revisão de acessos e Declaração de
+  Aplicabilidade ISO 27001 (controles-âncora).
+- Índice do framework de governança (`docs/governance/README.md`) com notas de completude.
+
+### Adicionado — Implementação de referência WSS13_GOS (Fase 1)
+- Pacote `impl/wss13_gos/` (Python 3.11, apenas stdlib) com os motores Intake, Triage,
+  Risk, Approval e o cofre de evidências (EvidenceVault), orquestrados por um pipeline
+  equivalente a `WSS13_GOS_MAIN`.
+- Persistência dupla: `InMemoryRepository` e `SQLiteRepository`.
+- API HTTP mínima (`wss13_gos/api.py`) e demonstração ponta a ponta (`run_demo.py`).
+- Suíte de 21 testes cobrindo pontuação de risco, alçadas, cadeia de evidências e invariantes.
+- Workflow de CI (`.github/workflows/ci.yml`) rodando testes + demo. `.gitignore` adicionado.
+
+### Adicionado — Camada de governança operacional (Fase 0)
+- Matriz de riscos (`docs/governance/matriz-de-riscos.md`).
+- Matriz de aprovação e alçadas / RACI (`docs/governance/matriz-de-aprovacao.md`).
+- Catálogo dos 191 agentes de IA (`docs/governance/catalogo-de-agentes-ia.md`).
+- Classificação de dados, LGPD e GDPR (`docs/governance/classificacao-de-dados-lgpd.md`).
+- Mapa de conformidade ISO/SOC 2/NIST/LGPD/GDPR/EU AI Act (`docs/governance/mapa-de-conformidade.md`).
+- Registros operacionais: catálogo de agentes, riscos, fornecedores e ativos de dados (`registers/`).
+- Modelos: solicitação de governança, avaliação de risco, DPIA e postmortem (`templates/`).
+- README atualizado com estrutura e roadmap; este CHANGELOG.
+
+## [1.0.0] — 2026-07-04
+
+### Adicionado
+- Documento mestre `WSS13-SGI-AI-PSEUDOCODE-001` v1.0.0: pseudocódigo do Sistema de Governança
+  Integrado com 24 seções e 4 apêndices (constantes, enumerações, entidades e invariantes).
+- README inicial e identificação do ativo.
