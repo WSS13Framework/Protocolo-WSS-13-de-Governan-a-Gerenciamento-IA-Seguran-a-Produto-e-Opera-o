@@ -8,6 +8,8 @@ from datetime import datetime, timezone
 from .enums import (
     ApprovalStatus,
     ExecutionStatus,
+    IncidentSeverity,
+    IncidentStatus,
     RequestType,
     RiskLevel,
     Role,
@@ -129,6 +131,28 @@ class ApprovalFlow:
     required_approvers: list[Role]
     decisions: list[ApprovalDecision] = field(default_factory=list)
     status: ApprovalStatus = ApprovalStatus.PENDING
+
+
+@dataclass
+class Incident:
+    """ENTITY Incident (seção 16 / Apêndice C)."""
+
+    incident_id: str
+    title: str
+    severity: IncidentSeverity
+    incident_type: str  # SECURITY | PRIVACY | AI | OPERATIONAL | FINANCIAL | ...
+    description: str = ""
+    commander: str = "SYSTEM"
+    affected_systems: list[str] = field(default_factory=list)
+    affected_customers: list[str] = field(default_factory=list)
+    data_breach_suspected: bool = False
+    ai_failure_involved: bool = False
+    regulatory_notification_required: bool = False
+    root_cause: str | None = None
+    corrective_actions: list[str] = field(default_factory=list)
+    status: IncidentStatus = IncidentStatus.OPEN
+    created_at: datetime = field(default_factory=_now)
+    resolved_at: datetime | None = None
 
 
 @dataclass

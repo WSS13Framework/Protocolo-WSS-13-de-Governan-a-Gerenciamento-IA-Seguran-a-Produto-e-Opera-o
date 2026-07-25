@@ -106,6 +106,7 @@ Programa de construção do ativo, em fases sequenciais:
 | **1** | Implementação de referência do software (motores Intake/Risk/Approval/Evidence) | ✅ Entregue |
 | **2** | Aprofundar governança para prontidão formal de auditoria ISO/SOC 2 | ✅ Entregue |
 | **3** | Catalogar os 191 agentes (esqueleto + validador; dados reais a preencher) | ✅ Entregue |
+| **4** | Fechar o ciclo: Incidentes, Auditoria e Painel Executivo | ✅ Entregue |
 
 ## Aviso de propriedade intelectual
 

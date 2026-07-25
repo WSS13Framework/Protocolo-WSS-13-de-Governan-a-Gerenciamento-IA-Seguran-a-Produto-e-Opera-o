@@ -18,12 +18,19 @@ import sqlite3
 from dataclasses import asdict
 from datetime import datetime
 
-from .enums import ApprovalStatus, ExecutionStatus, RequestType, RiskLevel, Role
+from .enums import (
+    ExecutionStatus,
+    IncidentSeverity,
+    IncidentStatus,
+    RequestType,
+    RiskLevel,
+    Role,
+)
 from .models import (
-    ApprovalDecision,
     ApprovalFlow,
     EvidenceRecord,
     GovernanceRequest,
+    Incident,
     RiskAssessment,
 )
 
@@ -34,6 +41,7 @@ class InMemoryRepository:
         self.risks: dict[str, RiskAssessment] = {}
         self.approvals: dict[str, ApprovalFlow] = {}
         self.evidence: list[EvidenceRecord] = []
+        self.incidents: dict[str, "Incident"] = {}
 
     def save_request(self, request: GovernanceRequest) -> None:
         self.requests[request.request_id] = request
@@ -55,6 +63,21 @@ class InMemoryRepository:
 
     def all_evidence(self) -> list[EvidenceRecord]:
         return list(self.evidence)
+
+    def save_incident(self, incident: "Incident") -> None:
+        self.incidents[incident.incident_id] = incident
+
+    def get_incident(self, incident_id: str) -> "Incident | None":
+        return self.incidents.get(incident_id)
+
+    def all_incidents(self) -> list["Incident"]:
+        return list(self.incidents.values())
+
+    def all_requests(self) -> list[GovernanceRequest]:
+        return list(self.requests.values())
+
+    def all_risks(self) -> list[RiskAssessment]:
+        return list(self.risks.values())
 
 
 class SQLiteRepository:
@@ -90,6 +113,10 @@ class SQLiteRepository:
                 description TEXT NOT NULL,
                 content_hash TEXT NOT NULL,
                 audit_relevant INTEGER NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS incidents (
+                incident_id TEXT PRIMARY KEY,
+                payload TEXT NOT NULL
             );
             """
         )
@@ -187,6 +214,49 @@ class SQLiteRepository:
             )
             for r in rows
         ]
+
+    # --- incidents -----------------------------------------------------------
+    def save_incident(self, incident: Incident) -> None:
+        self._conn.execute(
+            "INSERT OR REPLACE INTO incidents(incident_id, payload) VALUES (?, ?)",
+            (incident.incident_id, self._dump(incident)),
+        )
+        self._conn.commit()
+
+    def get_incident(self, incident_id: str) -> Incident | None:
+        row = self._conn.execute(
+            "SELECT payload FROM incidents WHERE incident_id = ?", (incident_id,)
+        ).fetchone()
+        return self._incident_from_dict(json.loads(row["payload"])) if row else None
+
+    def all_incidents(self) -> list[Incident]:
+        rows = self._conn.execute("SELECT payload FROM incidents").fetchall()
+        return [self._incident_from_dict(json.loads(r["payload"])) for r in rows]
+
+    @staticmethod
+    def _incident_from_dict(data: dict) -> Incident:
+        data = dict(data)
+        data["severity"] = IncidentSeverity(data["severity"])
+        data["status"] = IncidentStatus(data["status"])
+        data["created_at"] = datetime.fromisoformat(data["created_at"])
+        if data.get("resolved_at"):
+            data["resolved_at"] = datetime.fromisoformat(data["resolved_at"])
+        return Incident(**data)
+
+    def all_requests(self) -> list[GovernanceRequest]:
+        rows = self._conn.execute("SELECT payload FROM governance_requests").fetchall()
+        return [self._request_from_dict(json.loads(r["payload"])) for r in rows]
+
+    def all_risks(self) -> list[RiskAssessment]:
+        rows = self._conn.execute("SELECT payload FROM risk_assessments").fetchall()
+        out = []
+        for r in rows:
+            d = json.loads(r["payload"])
+            d["risk_level"] = RiskLevel(d["risk_level"])
+            d["required_approvers"] = [Role(x) for x in d.get("required_approvers", [])]
+            d["created_at"] = datetime.fromisoformat(d["created_at"])
+            out.append(RiskAssessment(**d))
+        return out
 
     def close(self) -> None:
         self._conn.close()

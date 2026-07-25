@@ -6,6 +6,18 @@ versionamento semântico do protocolo.
 
 ## [Não lançado]
 
+### Adicionado — Fecho do ciclo: Incidentes, Auditoria e Métricas (Fase 4)
+- `IncidentEngine` (`impl/wss13_gos/incident.py`): abertura/tratamento de incidentes,
+  kill switch de agente (abre incidente AI) e disparo de notificação regulatória em
+  suspeita de violação de dados.
+- `AuditEngine` (`impl/wss13_gos/audit.py`): `run_monthly_audit` verifica integridade da
+  cadeia de evidências, solicitações sem risco, incidentes sem postmortem e reaproveita o
+  validador do catálogo de agentes; não conformidades viram itens de CAPA.
+- `MetricsEngine` (`impl/wss13_gos/metrics.py`): painel executivo agregando solicitações
+  por status/risco, incidentes e integridade de evidências.
+- API ganha `GET /dashboard`, `GET /audit` e `POST /incidents`; persistência de incidentes
+  em memória e SQLite. Demo estendido. 8 novos testes (36 no total).
+
 ### Adicionado — Catálogo dos 191 agentes: esqueleto + validador (Fase 3)
 - `registers/catalogo-agentes.csv` populado com as 191 linhas estruturadas
   (`WSS13-AGENT-001..191`, status `PENDING_REGISTRATION`) para preenchimento pelo time.

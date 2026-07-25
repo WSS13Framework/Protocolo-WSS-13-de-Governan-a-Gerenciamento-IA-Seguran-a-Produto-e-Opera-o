@@ -76,6 +76,19 @@ class AIAutonomyLevel(str, Enum):
     LEVEL_5_CRITICAL_AUTONOMOUS_ACTION = "LEVEL_5_CRITICAL_AUTONOMOUS_ACTION"
 
 
+class IncidentSeverity(str, Enum):
+    SEV_4_LOW = "SEV_4_LOW"
+    SEV_3_MEDIUM = "SEV_3_MEDIUM"
+    SEV_2_HIGH = "SEV_2_HIGH"
+    SEV_1_CRITICAL = "SEV_1_CRITICAL"
+
+
+class IncidentStatus(str, Enum):
+    OPEN = "OPEN"
+    CONTAINED = "CONTAINED"
+    CLOSED = "CLOSED"
+
+
 class Role(str, Enum):
     """Papéis de aprovação (ver matriz de alçadas)."""
 

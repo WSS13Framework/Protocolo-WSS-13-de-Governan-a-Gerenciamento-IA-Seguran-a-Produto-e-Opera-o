@@ -64,9 +64,20 @@ def main() -> None:
         print(f"  risco         : {ra.risk_level.value}  (score {ra.total_score} / raw {ra.raw_score})")
         print(f"  aprovadores   : {', '.join(r.value for r in ra.required_approvers)}")
         print(f"  DPIA          : {ra.requires_dpia}   red-team/IA: {ra.requires_ai_review}")
+    # Incidente + kill switch
+    gos.incidents.kill_switch("WSS13-AGENT-042", "taxa de alucinação acima do limite", "CISO")
+
     print("=" * 72)
-    print(f"cadeia de evidências íntegra: {gos.evidence.verify_chain()}")
-    print(f"total de evidências        : {len(gos.repo.all_evidence())}")
+    dash = gos.metrics.generate_executive_dashboard()
+    print("PAINEL EXECUTIVO")
+    print(f"  solicitações totais : {dash.total_requests}")
+    print(f"  por risco           : {dash.requests_by_risk}")
+    print(f"  incidentes abertos  : {dash.open_incidents}  {dash.incidents_by_type}")
+    print(f"  evidências          : {dash.evidence_records}  (íntegra: {dash.evidence_chain_valid})")
+
+    print("=" * 72)
+    report = gos.audit.run_monthly_audit()
+    print(report.summary())
 
 
 if __name__ == "__main__":

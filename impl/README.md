@@ -4,9 +4,10 @@ Implementação **executável** dos motores centrais do protocolo mestre
 ([`WSS13-SGI-AI-PSEUDOCODE-001`](../docs/WSS13-SGI-AI-PSEUDOCODE-001.md)), construída
 **apenas com a biblioteca padrão do Python 3.11+** — sem dependências externas.
 
-> Esta é a base do software proprietário de governança da WSS+13. Cobre o caminho
-> Intake → Triage → Risk → Approval → Evidence (seções 4–8 e 18). Execução/QA/Release,
-> IA, dados, incidentes e demais motores serão adicionados nas próximas fases.
+> Esta é a base do software proprietário de governança da WSS+13. Cobre o ciclo
+> Intake → Triage → Risk → Approval → Evidence (seções 4–8 e 18), além de Incidentes
+> (seção 16), Auditoria (seção 19) e Painel Executivo (seção 22). Execução/QA/Release,
+> ciclo de produto/cliente/fornecedor e finanças serão adicionados nas próximas fases.
 
 ## Estrutura
 
@@ -21,11 +22,14 @@ impl/
 │   ├── risk.py           # RiskEngine — pontuação ponderada e classificação (seção 7)
 │   ├── approval.py       # ApprovalEngine — alçadas/RACI (seção 8)
 │   ├── orchestrator.py   # WSS13_GOS_MAIN — pipeline (seção 4)
+│   ├── incident.py       # IncidentEngine + kill switch (seção 16 / 9)
+│   ├── audit.py          # AuditEngine — run_monthly_audit (seção 19)
+│   ├── metrics.py        # MetricsEngine — painel executivo (seção 22)
 │   ├── storage.py        # InMemoryRepository + SQLiteRepository
 │   ├── api.py            # API HTTP mínima (stdlib)
 │   ├── agent_catalog.py  # validador do catálogo dos 191 agentes (audit_ai_agents)
 │   └── validate_catalog.py # CLI do validador
-├── tests/                # 28 testes (unittest)
+├── tests/                # 36 testes (unittest)
 └── run_demo.py           # demonstração ponta a ponta
 ```
 
@@ -57,6 +61,11 @@ curl -s -X POST http://127.0.0.1:8013/requests \
 # -> {"status":"SUCCESS","risk_level":"HIGH","required_approvers":["OWNER","AI_OFFICER","DPO","CTO","CISO","CEO"], ...}
 
 curl -s http://127.0.0.1:8013/evidence/verify   # {"chain_valid": true}
+curl -s http://127.0.0.1:8013/dashboard         # painel executivo
+curl -s http://127.0.0.1:8013/audit             # auditoria mensal
+curl -s -X POST http://127.0.0.1:8013/incidents \
+  -H 'Content-Type: application/json' \
+  -d '{"incident_type":"PRIVACY","severity":"SEV_1_CRITICAL","description":"vazamento","data_breach_suspected":true}'
 ```
 
 ## Decisões de projeto

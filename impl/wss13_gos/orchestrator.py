@@ -8,10 +8,13 @@ nada é aprovado sem passar por todos os aprovadores exigidos).
 from __future__ import annotations
 
 from .approval import ApprovalEngine, DecisionResolver, auto_approve
+from .audit import AuditEngine
 from .enums import ApprovalStatus, ExecutionStatus
 from .evidence import EvidenceVault
 from .ids import IDGenerator
+from .incident import IncidentEngine
 from .intake import IntakeEngine, TriageEngine
+from .metrics import MetricsEngine
 from .models import GovernanceResponse
 from .risk import RiskEngine
 from .storage import InMemoryRepository
@@ -28,6 +31,9 @@ class GovernanceOrchestrator:
         self.triage = TriageEngine(self.repo)
         self.risk = RiskEngine(self.ids, self.repo)
         self.approval = ApprovalEngine(self.ids, self.repo, self.evidence)
+        self.incidents = IncidentEngine(self.ids, self.repo, self.evidence)
+        self.audit = AuditEngine(self.ids, self.repo, self.evidence)
+        self.metrics = MetricsEngine(self.repo, self.evidence)
 
     def execute(self, event: dict,
                 resolver: DecisionResolver = auto_approve) -> GovernanceResponse:
